@@ -1,0 +1,2 @@
+- [supersvelte direction](supersvelte-direction.md) — lowercase brand; redesign means a new composition, not a cosmetic restyle.
+- [Floating geometry](floating-geometry.md) — measure and position the same element to avoid coordinate-system feedback.

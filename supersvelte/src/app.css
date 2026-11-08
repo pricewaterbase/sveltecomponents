@@ -1,0 +1,71 @@
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fcfcfc;
+  --sidebar: #fcfcfc;
+  --field: #f4f4f4;
+  --surface: #ffffff;
+  --composer: #ffffff;
+  --text: #0d0d0d;
+  --muted: #5d5d5d;
+  --faint: #8f8f8f;
+  --divider: #ececec;
+  --border: #e3e3e3;
+  --border-strong: #c9c9c9;
+  --hover: #f3f3f3;
+  --active: #ececec;
+  --skeleton: #ececec;
+  --danger: #c4372b;
+  --focus: #0d0d0d;
+  --selection: #d6e4ff;
+  --toast-bg: #0d0d0d;
+  --toast-text: #fcfcfc;
+  --overlay: rgba(0, 0, 0, .32);
+  --shadow-composer: 0 2px 5px rgba(0, 0, 0, .06), 0 0 1px rgba(0, 0, 0, .1);
+  --shadow-composer-focus: 0 6px 22px rgba(0, 0, 0, .08), 0 0 1px rgba(0, 0, 0, .14);
+  --shadow-pop: 0 12px 40px rgba(0, 0, 0, .14);
+  --font: Arial, Helvetica, sans-serif;
+  --mono: Arial, Helvetica, sans-serif;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #212121;
+  --sidebar: #171717;
+  --field: #2f2f2f;
+  --surface: #262626;
+  --composer: #303030;
+  --text: #ececec;
+  --muted: #b4b4b4;
+  --faint: #8a8a8a;
+  --divider: #2f2f2f;
+  --border: #3a3a3a;
+  --border-strong: #525252;
+  --hover: #2f2f2f;
+  --active: #363636;
+  --skeleton: #333333;
+  --danger: #f08a84;
+  --focus: #ececec;
+  --selection: #3f5175;
+  --toast-bg: #ececec;
+  --toast-text: #171717;
+  --overlay: rgba(0, 0, 0, .6);
+  --shadow-composer: 0 4px 16px rgba(0, 0, 0, .2);
+  --shadow-composer-focus: 0 6px 22px rgba(0, 0, 0, .3);
+  --shadow-pop: 0 14px 48px rgba(0, 0, 0, .5);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+body { min-width: 320px; }
+button, input, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, h5, h6, p, a, span:not(.katex *), label, kbd, button, input, select, option, textarea { font-family: Arial, Helvetica, sans-serif !important; }
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+::selection { background: var(--selection); }
+@keyframes pulse { 50% { opacity: .45; } }
+@keyframes rise { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* KaTeX keeps its own math fonts; only spans inside .katex are excluded above. */

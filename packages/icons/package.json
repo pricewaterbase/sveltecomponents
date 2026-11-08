@@ -1,0 +1,30 @@
+{
+  "name": "@pricewaterbase/icons",
+  "version": "0.1.0",
+  "description": "SVG icon catalog for pricewaterbase",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./catalog.json": "./dist/icons.json"
+  },
+  "scripts": {
+    "build": "node ./build.mjs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

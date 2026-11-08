@@ -1,0 +1,95 @@
+name: Build and publish icons
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "icons-v*"
+    paths:
+      - "supersvelte/server/data/icons.json"
+      - "supersvelte/source-icons/**"
+      - "supersvelte/scripts/import-icons.py"
+      - "packages/icons/**"
+      - ".github/workflows/publish-icons.yml"
+  pull_request:
+    paths:
+      - "supersvelte/server/data/icons.json"
+      - "supersvelte/source-icons/**"
+      - "supersvelte/scripts/import-icons.py"
+      - "packages/icons/**"
+      - ".github/workflows/publish-icons.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@pricewaterbase"
+
+      - name: Build package
+        working-directory: packages/icons
+        run: npm run build
+
+      - name: Verify release tag matches package version
+        if: startsWith(github.ref, 'refs/tags/icons-v')
+        working-directory: packages/icons
+        run: |
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          TAG_VERSION="${GITHUB_REF_NAME#icons-v}"
+          test "$PACKAGE_VERSION" = "$TAG_VERSION" || {
+            echo "Tag version $TAG_VERSION does not match package version $PACKAGE_VERSION" >&2
+            exit 1
+          }
+
+      - name: Check npm package contents
+        working-directory: packages/icons
+        run: npm pack --dry-run
+
+  publish:
+    if: >-
+      startsWith(github.ref, 'refs/tags/icons-v')
+      || github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@pricewaterbase"
+
+      - name: Build package
+        working-directory: packages/icons
+        run: npm run build
+
+      - name: Publish package
+        working-directory: packages/icons
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
