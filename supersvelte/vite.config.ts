@@ -8,7 +8,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: Number(process.env.PORT || 5173),
     strictPort: true,
-    allowedHosts: ['fix-workspace-preview-error-supersvelte-ff472b33667d0d00.v0.build'],
+    allowedHosts: true,
     proxy: {
       '/api': 'http://127.0.0.1:8080',
     },
