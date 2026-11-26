@@ -1,4 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "supersvelte/dist"
+  "outputDirectory": "supersvelte/dist",
+  "rewrites": [
+    { "source": "/api/icons/:name/code", "destination": "/api/icons?name=:name" }
+  ]
 }
